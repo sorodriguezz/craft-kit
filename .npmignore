@@ -1,0 +1,40 @@
+# Node modules (en caso de que exista)
+node_modules
+
+# Archivos de configuracion de TS
+tsconfig.json
+tsconfig.*.json
+
+# Archivos de pruebas y carpetas de test
+test
+__tests__
+*.spec.ts
+*.test.ts
+
+# Coverage e informes
+coverage
+.nyc_output
+
+# Carpeta de caché de Nest CLI, si la usas
+.nestcli
+
+# Archivos de entorno
+.env
+.env.*
+
+# Configs de IDE o Editor
+.vscode
+.idea
+
+# Logs o informes temporales
+*.log
+*.tsbuildinfo
+
+# Repositorio Git
+.git
+.gitignore
+
+# Otros archivos que no quieras subir
+.editorconfig
+docker-compose.yml
+Dockerfile

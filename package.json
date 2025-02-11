@@ -1,0 +1,35 @@
+{
+  "name": "dev-kit",
+  "version": "0.0.1",
+  "description": "dev-kit provides utilities for developers, making it easier to build secure and efficient applications.",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**/*"
+  ],
+  "scripts": {
+    "build": "npx tsc -p tsconfig.json",
+    "prepublishOnly": "npm run build"
+  },
+  "peerDependencies": {
+    "@nestjs/common": "^11.0.6",
+    "rxjs": "^7.8.1"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^11.0.2",
+    "@types/opossum": "^8.1.8",
+    "typescript": "^5.7.3"
+  },
+  "keywords": [
+    "nestjs",
+    "express",
+    "utilities",
+    "algorithms",
+    "data-structures",
+    "security",
+    "performance"
+  ],
+  "author": "sorodriguezz",
+  "license": "MIT"
+}
