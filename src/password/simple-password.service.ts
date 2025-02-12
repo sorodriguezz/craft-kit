@@ -14,7 +14,7 @@ export class SimplePassword implements IPasswordStrategy {
 
     let password = "";
 
-    for (let i = 0; i < length; i++) {
+    for (let i = 0; i < params.length; i++) {
       const randomIndex = Math.floor(Math.random() * charset.length);
       password += charset[randomIndex];
     }

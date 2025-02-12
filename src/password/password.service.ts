@@ -7,8 +7,8 @@ import { IPasswordStrategy } from "./password-strategy";
 export class PasswordService {
   private strategy: IPasswordStrategy;
 
-  constructor(strategy?: IPasswordStrategy) {
-    this.strategy = strategy || new SimplePassword();
+  constructor(private readonly simplePassword: SimplePassword) {
+    this.strategy = this.simplePassword;
   }
 
   setStrategy(strategy: IPasswordStrategy) {
