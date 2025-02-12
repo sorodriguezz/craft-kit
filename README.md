@@ -1,6 +1,6 @@
 <p align="center"> <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a> </p> <p align="center"> <a href='https://img.shields.io/npm/l/resilience-kit'><img src="https://img.shields.io/npm/l/resilience-kit" alt="MIT License" /></a> </p>
 
-**Dev Kit** is a library that provides utilities for developers, facilitating the implementation of common functionalities.
+**Craft Kit** is a library that provides utilities for developers, facilitating the implementation of common functionalities.
 
 ## 🚀 Main Features
 
