@@ -31,5 +31,8 @@
     "performance"
   ],
   "author": "sorodriguezz",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "crypto": "^1.0.1"
+  }
 }

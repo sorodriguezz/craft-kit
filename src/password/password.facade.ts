@@ -1,18 +1,39 @@
 import { Injectable } from "@nestjs/common";
 import { IPasswordStrategy } from "./password-strategy";
 
-import { NameStrategy } from "./name-strategy.type";
+import { NameStrategy } from "./types/name-strategy.type";
 import { IStrategyParamsMap } from "./interfaces/strategy-params-map.interface";
+import { UtilsRegistry } from "../utils.registry";
+import { SimplePassword } from "./simple-password.service";
+import { PasswordConstants } from "../constants/password.constant";
+import { PBKDF2Password } from "./pbkdf2-password.service";
 
 @Injectable()
 export class PasswordFacade {
-  private registry = new Map<NameStrategy, IPasswordStrategy<any>>();
+  private registry = new UtilsRegistry<
+    NameStrategy | string,
+    IPasswordStrategy<any>
+  >();
+
+  constructor(
+    private readonly simplePassword: SimplePassword,
+    private readonly pbkdf2Password: PBKDF2Password
+  ) {
+    this.registry.register(
+      PasswordConstants.SIMPLE_STRATEGY_PASSWORD,
+      this.simplePassword
+    );
+    this.registry.register(
+      PasswordConstants.PBKDF2_STRATEGY_PASSWORD,
+      this.pbkdf2Password
+    );
+  }
 
   registerStrategy<K extends NameStrategy>(
-    name: K,
+    name: K | string,
     strategy: IPasswordStrategy<IStrategyParamsMap[K]>
   ): void {
-    this.registry.set(name, strategy);
+    this.registry.register(name, strategy);
   }
 
   generatePassword<K extends NameStrategy>(
