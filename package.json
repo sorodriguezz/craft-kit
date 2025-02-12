@@ -1,7 +1,7 @@
 {
-  "name": "dev-kit",
-  "version": "1.0.1",
-  "description": "dev-kit provides utilities for developers, making it easier to build secure and efficient applications.",
+  "name": "code-kit",
+  "version": "1.0.0",
+  "description": "code-kit provides utilities for developers, making it easier to build secure and efficient applications.",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
