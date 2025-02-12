@@ -19,10 +19,10 @@ export class SimplePassword
 
     let charset = "";
 
-    if (options.useUppercase) charset += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    if (options.useLowercase) charset += "abcdefghijklmnopqrstuvwxyz";
-    if (options.useDigits) charset += "0123456789";
-    if (options.useSymbols) charset += "!@#$%^&*()_+[]{}|;:,.<>?";
+    if (options.useUppercase) charset += PasswordConstants.VALUE_UPPERCASE;
+    if (options.useLowercase) charset += PasswordConstants.VALUE_LOWERCASE;
+    if (options.useDigits) charset += PasswordConstants.VALUE_DIGITS;
+    if (options.useSymbols) charset += PasswordConstants.VALUE_SYMBOLS;
 
     let password = "";
 
