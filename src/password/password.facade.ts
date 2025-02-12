@@ -12,7 +12,7 @@ import { PBKDF2Password } from "./pbkdf2-password.service";
 export class PasswordFacade {
   private registry = new UtilsRegistry<
     NameStrategy | string,
-    IPasswordStrategy<any>
+    IPasswordStrategy<IStrategyParamsMap[NameStrategy]>
   >();
 
   constructor(

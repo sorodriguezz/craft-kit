@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { SimplePassword } from "./simple-password.service";
 import { IPasswordStrategy } from "./password-strategy";
-import type { ISimplePasswordParams } from "./interfaces/simple-password-params.interface";
+import { ISimplePasswordParams } from "./interfaces/simple-password-params.interface";
 
 @Injectable()
 export class PasswordService {

@@ -15,7 +15,7 @@ export class PBKDF2Password
       iterations = PasswordConstants.DEFAULT_ITERATIONS_PASSWORD,
       keylen = PasswordConstants.DEFAULT_KEYLEN_PASSWORD,
       digest = PasswordConstants.DEFAULT_DIGEST_PASSWORD,
-      encoding = PasswordConstants.DEFAULT_ENCODIGN_PASSWORD,
+      encoding = PasswordConstants.DEFAULT_ENCODING_PASSWORD,
     } = options;
     const derivedKey = pbkdf2Sync(password, salt, iterations, keylen, digest);
     return derivedKey.toString(encoding);
