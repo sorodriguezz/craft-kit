@@ -1,41 +1,35 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+<p align="center"> <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a> </p> <p align="center"> <a href='https://img.shields.io/npm/l/resilience-kit'><img src="https://img.shields.io/npm/l/resilience-kit" alt="MIT License" /></a> </p>
 
-<p align="center">
-    <a href='https://img.shields.io/npm/l/resilience-kit'><img src="https://img.shields.io/npm/l/resilience-kit" alt="MIT License" /></a>
-</p>
+**Dev Kit** is a library that provides utilities for developers, facilitating the implementation of common functionalities.
 
-**Dev Kit** es una biblioteca que provee utilidades para desarrolladores, facilitando la implementación de funcionalidades comunes.
+## 🚀 Main Features
 
-## 🚀 Características principales
+- ✅ Password Generation:
+  - ✅ Simple Generation.
+  - ✅ Generation with Crypto.
 
-- ✅ Generación de contraseñas:
-  - ✅ Generación Simple.
-  - ✅ Generación con Crypto.
+## 📦 Installation
 
-## 📦 Instalación
-
-Puedes realizar la instalación con [NPM](https://www.npmjs.com/):
+You can install it using [NPM](https://www.npmjs.com/):
 
 ```bash
 npm install dev-kit
 ```
 
-O usando [Yarn](https://yarnpkg.com/):
+Or using [Yarn](https://yarnpkg.com/):
 
 ```bash
 yarn add dev-kit
 ```
 
-### Requisitos
+### Requirements
 
-- NestJS (v9 o superior recomendado).
+- NestJS (v9 or higher recommended).
 - Node.js 16+
 
 ## 📌 Uso básico en NestJS
 
-Importar el módulo:
+Import the module:
 
 ```typescript
 import { Module } from "@nestjs/common";
@@ -47,20 +41,19 @@ import { UtilsModule } from "dev-kit";
 export class AppModule {}
 ```
 
-### Generación de Contraseñas
+### Password Generation
 
-La librería permite generar contraseñas utilizando dos estrategias principales.
+The library allows you to generate passwords using two main strategies.
 
-#### Estrategia SIMPLE
+#### SIMPLE Strategy
 
-Utiliza la estrategia SIMPLE para generar una contraseña con caracteres aleatorios:
+Use the SIMPLE strategy to generate a password with random characters:
 
 ```typescript
-import { PasswordFacade } from "dev-kit/src/password/password.facade";
-import type { ISimplePasswordParams } from "dev-kit/src/password/interfaces/simple-password-params.interface";
+import { PasswordFacade } from "dev-kit";
+import type { ISimplePasswordParams } from "dev-kit";
 
-const passwordFacade =
-  new PasswordFacade(/* inyección de dependencias en NestJS */);
+const passwordFacade = new PasswordFacade(/* dependency injection in NestJS */);
 const simpleParams: ISimplePasswordParams = {
   length: 12,
   useUppercase: true,
@@ -70,16 +63,16 @@ const simpleParams: ISimplePasswordParams = {
 };
 
 const passwordSimple = passwordFacade.generatePassword("SIMPLE", simpleParams);
-console.log("Contraseña SIMPLE:", passwordSimple);
+console.log("SIMPLE Password:", passwordSimple);
 ```
 
-#### Estrategia PBKDF2
+#### PBKDF2 Strategy
 
-Utiliza la estrategia PBKDF2 para una generación de contraseña segura, apoyándose en un algoritmo de derivación de claves:
+Use the PBKDF2 strategy for secure password generation, relying on a key derivation algorithm:
 
 ```typescript
-import { PasswordFacade } from "dev-kit/src/password/password.facade";
-import type { IPBKDF2PasswordParams } from "dev-kit/src/password/interfaces/pbkdf2-password-params.interface";
+import { PasswordFacade } from "dev-kit";
+import type { IPBKDF2PasswordParams } from "dev-kit";
 
 const pbkdf2Params: IPBKDF2PasswordParams = {
   password: "miPasswordSecreto",
@@ -91,24 +84,24 @@ const pbkdf2Params: IPBKDF2PasswordParams = {
 };
 
 const passwordPBKDF2 = passwordFacade.generatePassword("PBKDF2", pbkdf2Params);
-console.log("Contraseña PBKDF2:", passwordPBKDF2);
+console.log("PBKDF2 Password:", passwordPBKDF2);
 ```
 
-#### Registro de Nuevas Estrategias
+#### Registering New Strategies
 
-Si deseas ampliar la funcionalidad, puedes registrar estrategias personalizadas a través del método `registerStrategy`:
+If you want to extend the functionality, you can register custom strategies using the ```registerStrategy``` method:
 
 ```typescript
 passwordFacade.registerStrategy("CUSTOM", myCustomPasswordStrategy);
 ```
 
-#### Uso Directo del Servicio de Contraseña
+#### Direct Use of the Password Service
 
-También puedes usar el PasswordService para cambiar de estrategia de manera dinámica:
+You can also use the PasswordService to dynamically switch strategies:
 
 ```typescript
-import { PasswordService } from "dev-kit/src/password/password.service";
-import { SimplePassword } from "dev-kit/src/password/simple-password.service";
+import { PasswordService } from "dev-kit";
+import { SimplePassword } from "dev-kit";
 
 const passwordService = new PasswordService(new SimplePassword());
 const generated = passwordService.generatePassword({
@@ -116,11 +109,11 @@ const generated = passwordService.generatePassword({
   useUppercase: true,
   useLowercase: true,
   useDigits: true,
-  useSymbols: true
+  useSymbols: true,
 });
-console.log("Password generado:", generated);
+console.log("Generated Password:", generated);
 ```
 
-## 📜 Licencia
+## 📜 License
 
-Este proyecto se distribuye bajo la licencia **MIT**. Puedes usarlo libremente en entornos personales y comerciales.
+This project is distributed under the MIT license. You are free to use it in both personal and commercial environments.
