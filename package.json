@@ -1,6 +1,6 @@
 {
   "name": "dev-kit",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "dev-kit provides utilities for developers, making it easier to build secure and efficient applications.",
   "main": "dist/index.js",
   "module": "dist/index.js",
