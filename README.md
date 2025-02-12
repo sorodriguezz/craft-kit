@@ -13,13 +13,13 @@
 You can install it using [NPM](https://www.npmjs.com/):
 
 ```bash
-npm install code-kit
+npm install craft-kit
 ```
 
 Or using [Yarn](https://yarnpkg.com/):
 
 ```bash
-yarn add code-kit
+yarn add craft-kit
 ```
 
 ### Requirements
@@ -33,7 +33,7 @@ Import the module:
 
 ```typescript
 import { Module } from "@nestjs/common";
-import { UtilsModule } from "code-kit";
+import { UtilsModule } from "craft-kit";
 
 @Module({
   imports: [UtilsModule],
@@ -50,8 +50,8 @@ The library allows you to generate passwords using two main strategies.
 Use the SIMPLE strategy to generate a password with random characters:
 
 ```typescript
-import { PasswordFacade } from "code-kit";
-import type { ISimplePasswordParams } from "code-kit";
+import { PasswordFacade } from "craft-kit";
+import type { ISimplePasswordParams } from "craft-kit";
 
 const passwordFacade = new PasswordFacade(/* dependency injection in NestJS */);
 const simpleParams: ISimplePasswordParams = {
@@ -71,8 +71,8 @@ console.log("SIMPLE Password:", passwordSimple);
 Use the PBKDF2 strategy for secure password generation, relying on a key derivation algorithm:
 
 ```typescript
-import { PasswordFacade } from "code-kit";
-import type { IPBKDF2PasswordParams } from "code-kit";
+import { PasswordFacade } from "craft-kit";
+import type { IPBKDF2PasswordParams } from "craft-kit";
 
 const pbkdf2Params: IPBKDF2PasswordParams = {
   password: "miPasswordSecreto",
@@ -100,8 +100,8 @@ passwordFacade.registerStrategy("CUSTOM", myCustomPasswordStrategy);
 You can also use the PasswordService to dynamically switch strategies:
 
 ```typescript
-import { PasswordService } from "code-kit";
-import { SimplePassword } from "code-kit";
+import { PasswordService } from "craft-kit";
+import { SimplePassword } from "craft-kit";
 
 const passwordService = new PasswordService(new SimplePassword());
 const generated = passwordService.generatePassword({
