@@ -34,7 +34,7 @@ export class PasswordFacade {
    * @returns The generated password.
    */
   generatePassword(opts: IParamsGenerate): string {
-    const options: IParamsGenerate = {
+    const options = {
       length: opts.length ?? PasswordConstants.DEFAULT_LENGTH_PASSWORD,
       strategyName:
         opts.strategyName ?? PasswordConstants.DEFAULT_STRATEGY_PASSWORD,
