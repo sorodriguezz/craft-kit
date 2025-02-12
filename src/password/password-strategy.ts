@@ -1,5 +1,3 @@
-import { IParamsGenerate } from "./params-generate.interface";
-
-export interface IPasswordStrategy {
-  generate(params: IParamsGenerate): string;
+export interface IPasswordStrategy<TParams> {
+  generate(options: TParams): string;
 }

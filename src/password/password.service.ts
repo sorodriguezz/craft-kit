@@ -1,21 +1,21 @@
 import { Injectable } from "@nestjs/common";
 import { SimplePassword } from "./simple-password.service";
-import { IParamsGenerate } from "./params-generate.interface";
 import { IPasswordStrategy } from "./password-strategy";
+import type { ISimplePasswordParams } from "./interfaces/simple-password-params.interface";
 
 @Injectable()
 export class PasswordService {
-  private strategy: IPasswordStrategy;
+  private strategy: IPasswordStrategy<ISimplePasswordParams>;
 
   constructor(private readonly simplePassword: SimplePassword) {
     this.strategy = this.simplePassword;
   }
 
-  setStrategy(strategy: IPasswordStrategy) {
+  setStrategy(strategy: IPasswordStrategy<ISimplePasswordParams>): void {
     this.strategy = strategy;
   }
 
-  generatePassword(params: IParamsGenerate): string {
+  generatePassword(params: ISimplePasswordParams): string {
     return this.strategy.generate(params);
   }
 }
