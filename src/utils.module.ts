@@ -1,4 +1,8 @@
-import { Module } from '@nestjs/common';
+import { Module } from "@nestjs/common";
+import { PasswordModule } from "./password/password.module";
 
-@Module({})
+@Module({
+  imports: [PasswordModule],
+  exports: [PasswordModule],
+})
 export class UtilsModule {}
