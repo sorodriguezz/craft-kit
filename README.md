@@ -27,7 +27,7 @@ yarn add dev-kit
 - NestJS (v9 or higher recommended).
 - Node.js 16+
 
-## 📌 Uso básico en NestJS
+## 📌 Basic Usage in NestJS
 
 Import the module:
 
