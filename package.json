@@ -1,37 +1,69 @@
 {
   "name": "craft-kit",
-  "version": "1.0.0",
-  "description": "craft-kit provides utilities for developers, making it easier to build secure and efficient applications.",
-  "main": "dist/index.js",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "version": "2.0.0",
+  "description": "Zero-dependency toolkit for JavaScript and TypeScript: data structures, sorting/searching/DP/backtracking algorithms, Java-style utilities (Optional, Stream, Atomics, Collections) and security helpers. Framework-agnostic, dual ESM + CommonJS.",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "sideEffects": false,
   "files": [
-    "dist/**/*"
+    "dist"
   ],
+  "engines": {
+    "node": ">=16"
+  },
   "scripts": {
-    "build": "npx tsc -p tsconfig.json",
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
     "prepublishOnly": "npm run build"
   },
-  "peerDependencies": {
-    "@nestjs/common": "^11.0.6",
-    "rxjs": "^7.8.1"
-  },
-  "devDependencies": {
-    "@nestjs/cli": "^11.0.2",
-    "typescript": "^5.7.3"
-  },
   "keywords": [
-    "nestjs",
-    "express",
+    "typescript",
+    "javascript",
     "utilities",
     "algorithms",
     "data-structures",
+    "sorting",
+    "searching",
+    "dynamic-programming",
+    "backtracking",
+    "stack",
+    "queue",
+    "linked-list",
+    "heap",
+    "binary-search-tree",
+    "hash-table",
+    "optional",
+    "stream",
+    "atomic",
+    "collections",
+    "hashmap",
+    "treemap",
+    "password",
+    "pbkdf2",
+    "hashing",
     "security",
-    "performance"
+    "esm",
+    "commonjs"
   ],
   "author": "sorodriguezz",
   "license": "MIT",
-  "dependencies": {
-    "crypto": "^1.0.1"
+  "devDependencies": {
+    "tsup": "^8.0.0",
+    "typescript": "^5.7.3"
   }
 }
