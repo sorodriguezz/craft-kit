@@ -157,4 +157,21 @@ export class DoublyLinkedList<T> implements Iterable<T> {
       node = node.prev;
     }
   }
+
+  /** First element, or undefined if empty (SequencedCollection). */
+  getFirst(): T | undefined {
+    return this.peekFirst();
+  }
+
+  /** Last element, or undefined if empty (SequencedCollection). */
+  getLast(): T | undefined {
+    return this.peekLast();
+  }
+
+  /** Returns a new list with the elements in reverse order. */
+  reversed(): DoublyLinkedList<T> {
+    const list = new DoublyLinkedList<T>();
+    for (const value of this.reverseIterator()) list.addLast(value);
+    return list;
+  }
 }

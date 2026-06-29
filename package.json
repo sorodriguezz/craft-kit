@@ -1,7 +1,7 @@
 {
   "name": "craft-kit",
-  "version": "2.0.0",
-  "description": "Zero-dependency toolkit for JavaScript and TypeScript: data structures, sorting/searching/DP/backtracking algorithms, Java-style utilities (Optional, Stream, Atomics, Collections) and security helpers. Framework-agnostic, dual ESM + CommonJS.",
+  "version": "2.1.0",
+  "description": "All-in-one zero-dependency toolkit for JavaScript and TypeScript: data structures, algorithms, design patterns, an adapter-based HTTP client, Java-style utilities, functional helpers, async utilities, array/object/string/date helpers, validation (incl. Chilean RUT) and security. Framework-agnostic, dual ESM + CommonJS.",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -17,6 +17,116 @@
         "default": "./dist/index.cjs"
       }
     },
+    "./common": {
+      "import": {
+        "types": "./dist/common.d.ts",
+        "default": "./dist/common.js"
+      },
+      "require": {
+        "types": "./dist/common.d.cts",
+        "default": "./dist/common.cjs"
+      }
+    },
+    "./structures": {
+      "import": {
+        "types": "./dist/structures.d.ts",
+        "default": "./dist/structures.js"
+      },
+      "require": {
+        "types": "./dist/structures.d.cts",
+        "default": "./dist/structures.cjs"
+      }
+    },
+    "./algorithms": {
+      "import": {
+        "types": "./dist/algorithms.d.ts",
+        "default": "./dist/algorithms.js"
+      },
+      "require": {
+        "types": "./dist/algorithms.d.cts",
+        "default": "./dist/algorithms.cjs"
+      }
+    },
+    "./java": {
+      "import": {
+        "types": "./dist/java.d.ts",
+        "default": "./dist/java.js"
+      },
+      "require": {
+        "types": "./dist/java.d.cts",
+        "default": "./dist/java.cjs"
+      }
+    },
+    "./async": {
+      "import": {
+        "types": "./dist/async.d.ts",
+        "default": "./dist/async.js"
+      },
+      "require": {
+        "types": "./dist/async.d.cts",
+        "default": "./dist/async.cjs"
+      }
+    },
+    "./fp": {
+      "import": {
+        "types": "./dist/fp.d.ts",
+        "default": "./dist/fp.js"
+      },
+      "require": {
+        "types": "./dist/fp.d.cts",
+        "default": "./dist/fp.cjs"
+      }
+    },
+    "./patterns": {
+      "import": {
+        "types": "./dist/patterns.d.ts",
+        "default": "./dist/patterns.js"
+      },
+      "require": {
+        "types": "./dist/patterns.d.cts",
+        "default": "./dist/patterns.cjs"
+      }
+    },
+    "./http": {
+      "import": {
+        "types": "./dist/http.d.ts",
+        "default": "./dist/http.js"
+      },
+      "require": {
+        "types": "./dist/http.d.cts",
+        "default": "./dist/http.cjs"
+      }
+    },
+    "./utils": {
+      "import": {
+        "types": "./dist/utils.d.ts",
+        "default": "./dist/utils.js"
+      },
+      "require": {
+        "types": "./dist/utils.d.cts",
+        "default": "./dist/utils.cjs"
+      }
+    },
+    "./validation": {
+      "import": {
+        "types": "./dist/validation.d.ts",
+        "default": "./dist/validation.js"
+      },
+      "require": {
+        "types": "./dist/validation.d.cts",
+        "default": "./dist/validation.cjs"
+      }
+    },
+    "./security": {
+      "import": {
+        "types": "./dist/security.d.ts",
+        "default": "./dist/security.js"
+      },
+      "require": {
+        "types": "./dist/security.d.cts",
+        "default": "./dist/security.cjs"
+      }
+    },
     "./package.json": "./package.json"
   },
   "sideEffects": false,
@@ -29,7 +139,8 @@
   "scripts": {
     "build": "tsup",
     "typecheck": "tsc --noEmit",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "docs": "typedoc"
   },
   "keywords": [
     "typescript",
@@ -58,13 +169,21 @@
     "hashing",
     "security",
     "esm",
-    "commonjs"
+    "commonjs",
+    "design-patterns",
+    "http-client",
+    "fetch",
+    "validation",
+    "rut",
+    "functional",
+    "graph"
   ],
   "author": "sorodriguezz",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.19.43",
     "tsup": "^8.0.0",
-    "typescript": "^5.7.3"
+    "typescript": "^5.7.3",
+    "typedoc": "^0.27.0"
   }
 }

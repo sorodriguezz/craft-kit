@@ -1,5 +1,6 @@
 import { type Comparator, naturalOrder } from "../common/comparator";
 import { Optional } from "./optional";
+import type { Gatherer } from "./gatherers";
 
 /**
  * Lazy, chainable sequence pipeline inspired by java.util.stream.Stream.
@@ -245,5 +246,54 @@ export class Stream<T> implements Iterable<T> {
   /** Joins string representations with an optional separator. */
   join(separator = ""): string {
     return this.toArray().map((v) => String(v)).join(separator);
+  }
+
+  /** Terminal: collects into an immutable (frozen) array (Java 16 toList). */
+  toList(): readonly T[] {
+    return Object.freeze([...this.source]);
+  }
+
+  /** One-to-many transform via an explicit push consumer (Java 16 mapMulti). */
+  mapMulti<U>(mapper: (element: T, push: (value: U) => void) => void): Stream<U> {
+    const src = this.source;
+    return new Stream<U>({
+      *[Symbol.iterator]() {
+        for (const element of src) {
+          const buffer: U[] = [];
+          mapper(element, (value) => buffer.push(value));
+          yield* buffer;
+        }
+      },
+    });
+  }
+
+  /** Applies a custom intermediate operation (Java Stream Gatherers). */
+  gather<S, R>(gatherer: Gatherer<T, S, R>): Stream<R> {
+    const src = this.source;
+    return new Stream<R>({
+      *[Symbol.iterator]() {
+        const state = (gatherer.initializer ? gatherer.initializer() : undefined) as S;
+        const buffer: R[] = [];
+        const push = (value: R): void => {
+          buffer.push(value);
+        };
+        let stopped = false;
+        for (const element of src) {
+          const result = gatherer.integrator(state, element, push);
+          if (buffer.length > 0) {
+            yield* buffer;
+            buffer.length = 0;
+          }
+          if (result === false) {
+            stopped = true;
+            break;
+          }
+        }
+        if (!stopped && gatherer.finisher) {
+          gatherer.finisher(state, push);
+          if (buffer.length > 0) yield* buffer;
+        }
+      },
+    });
   }
 }

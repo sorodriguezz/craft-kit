@@ -27,4 +27,11 @@ export class AtomicBoolean {
   toString(): string {
     return String(this.value);
   }
+
+  /** Atomically sets to `update` if current equals `expected`; returns the witnessed value. */
+  compareAndExchange(expected: boolean, update: boolean): boolean {
+    const witness = this.value;
+    if (witness === expected) this.value = update;
+    return witness;
+  }
 }

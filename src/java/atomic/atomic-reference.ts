@@ -41,4 +41,17 @@ export class AtomicReference<T> {
   toString(): string {
     return String(this.value);
   }
+
+  /** Atomically sets to `update` if current equals `expected`; returns the witnessed value. */
+  compareAndExchange(expected: T, update: T): T {
+    const witness = this.value;
+    if (witness === expected) this.value = update;
+    return witness;
+  }
+
+  /** Applies `fn(current, given)`, stores and returns the new value. */
+  accumulateAndGet(given: T, fn: (current: T, given: T) => T): T {
+    this.value = fn(this.value, given);
+    return this.value;
+  }
 }

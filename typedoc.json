@@ -1,0 +1,9 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": ["src/index.ts"],
+  "out": "docs",
+  "name": "craft-kit",
+  "excludePrivate": true,
+  "excludeInternal": true,
+  "readme": "README.md"
+}

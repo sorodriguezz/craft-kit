@@ -82,4 +82,39 @@ export class ArrayList<T> implements Iterable<T> {
   [Symbol.iterator](): IterableIterator<T> {
     return this.items[Symbol.iterator]();
   }
+
+  /** Inserts at the front (SequencedCollection). */
+  addFirst(value: T): void {
+    this.items.unshift(value);
+  }
+
+  /** Appends at the end (SequencedCollection). */
+  addLast(value: T): void {
+    this.items.push(value);
+  }
+
+  /** First element, or undefined if empty. */
+  getFirst(): T | undefined {
+    return this.items[0];
+  }
+
+  /** Last element, or undefined if empty. */
+  getLast(): T | undefined {
+    return this.items[this.items.length - 1];
+  }
+
+  /** Removes and returns the first element. */
+  removeFirst(): T | undefined {
+    return this.items.shift();
+  }
+
+  /** Removes and returns the last element. */
+  removeLast(): T | undefined {
+    return this.items.pop();
+  }
+
+  /** Returns a new ArrayList with the elements in reverse order. */
+  reversed(): ArrayList<T> {
+    return new ArrayList<T>([...this.items].reverse());
+  }
 }

@@ -69,4 +69,24 @@ export class AtomicInteger {
   toString(): string {
     return String(this.value);
   }
+
+  /** Atomically sets to `update` if current equals `expected`; returns the witnessed value. */
+  compareAndExchange(expected: number, update: number): number {
+    const witness = this.value;
+    if (witness === expected) this.value = update;
+    return witness;
+  }
+
+  /** Applies `fn(current, given)`, stores and returns the new value. */
+  accumulateAndGet(given: number, fn: (current: number, given: number) => number): number {
+    this.value = fn(this.value, given);
+    return this.value;
+  }
+
+  /** Applies `fn(current, given)`, stores it and returns the previous value. */
+  getAndAccumulate(given: number, fn: (current: number, given: number) => number): number {
+    const previous = this.value;
+    this.value = fn(previous, given);
+    return previous;
+  }
 }
