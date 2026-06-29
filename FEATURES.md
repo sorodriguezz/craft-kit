@@ -1,6 +1,6 @@
 # craft-kit — Feature Reference
 
-[English README](https://github.com/sorodriguezz/craft-kit/blob/main/README.md) · [README en Español](https://github.com/sorodriguezz/craft-kit/blob/main/es.md)
+**English** · [Español](https://github.com/sorodriguezz/craft-kit/blob/main/FEATURES.es.md) — [README](https://github.com/sorodriguezz/craft-kit/blob/main/README.md) · [README ES](https://github.com/sorodriguezz/craft-kit/blob/main/es.md)
 
 Complete reference of everything `craft-kit` exports, grouped by module. Import any symbol from the package root (`import { X } from "craft-kit"`) or from a [subpath](https://github.com/sorodriguezz/craft-kit/blob/main/README.md#-subpath-imports) (e.g. `craft-kit/structures`).
 
@@ -11,7 +11,9 @@ Complete reference of everything `craft-kit` exports, grouped by module. Import 
 - [Async & concurrency](#async--concurrency)
 - [Design patterns](#design-patterns)
 - [HTTP client](#http-client)
-- [Utilities](#utilities) — [arrays](#arrays) · [numbers](#numbers) · [booleans](#booleans) · [strings (utils)](#strings-utils) · [dates](#dates) · [objects](#objects) · [query](#query) · [is](#is-type-guards) · [guards](#guards) · [format](#format)
+- [Binary](#binary)
+- [Streams](#streams)
+- [Utilities](#utilities) — [arrays](#arrays) · [numbers](#numbers) · [booleans](#booleans) · [strings (utils)](#strings-utils) · [dates](#dates) · [objects](#objects) · [query](#query) · [is](#is-type-guards) · [guards](#guards) · [format](#format) · [colors](#colors) · [units](#units) · [csv](#csv) · [duration](#duration)
 - [Validation](#validation)
 - [Security](#security)
 - [Common](#common)
@@ -293,7 +295,7 @@ All comparison sorts accept an optional `Comparator<T>` and return a **new** arr
 
 ### numbers
 
-`clamp`, `round`, `inRange`, `isEven`, `isOdd`, `isInteger`, `randomInt`, `sum`, `average`, `percentage`, `formatThousands`.
+`clamp`, `round`, `inRange`, `isEven`, `isOdd`, `isInteger`, `randomInt`, `sum`, `average`, `percentage`, `formatThousands`, `toRoman`, `fromRoman`, `toOrdinal`, `toWords`.
 
 ### booleans
 
@@ -305,7 +307,7 @@ All comparison sorts accept an optional `Comparator<T>` and return a **new** arr
 
 ### dates
 
-`format`, `addDays`, `addMonths`, `addHours`, `addMinutes`, `diffInDays`, `diffInHours`, `startOfDay`, `endOfDay`, `isWeekend`, `isLeapYear`, `isSameDay`, `daysInMonth`, `parseISO`, `toISODate`.
+`format`, `addDays`, `addMonths`, `addHours`, `addMinutes`, `diffInDays`, `diffInHours`, `startOfDay`, `endOfDay`, `isWeekend`, `isLeapYear`, `isSameDay`, `daysInMonth`, `parse`, `parseISO`, `toISODate`, `fromUnix`, `toUnix`, `fromTimestamp`, `toTimestamp`.
 
 ### objects
 
@@ -326,6 +328,22 @@ Top-level helpers: `isNil`, `isNotNil`, `isEmpty`, `isNotEmpty`, `isBlank`, `isN
 ### format
 
 `bytes`, `duration`, `relativeTime`, `number`, `currency`, `percent`.
+
+### colors
+
+`hexToRgb`, `rgbToHex`, `rgbToHsl`, `hslToRgb`, `hexToHsl`, `hslToHex`, `lighten`, `darken`, `mix`, `luminance`, `contrastRatio`, `isValidHex`, `randomHex`.
+
+### units
+
+Temperature / length / mass / angle: `celsiusToFahrenheit`, `fahrenheitToCelsius`, `celsiusToKelvin`, `kelvinToCelsius`, `kmToMiles`, `milesToKm`, `metersToFeet`, `feetToMeters`, `cmToInches`, `inchesToCm`, `kgToPounds`, `poundsToKg`, `gramsToOunces`, `ouncesToGrams`, `degreesToRadians`, `radiansToDegrees`.
+
+### csv
+
+`parse(text, { delimiter?, header? })`, `stringify(rows, { delimiter?, header?, columns? })`.
+
+### duration
+
+`parse("1h30m")` → ms, `format(ms)`, `toObject(ms)`, `fromObject({ days, hours, minutes, seconds, milliseconds })`.
 
 ## Validation
 
@@ -355,6 +373,23 @@ Top-level helpers: `isNil`, `isNotNil`, `isEmpty`, `isNotEmpty`, `isBlank`, `isN
 | `totp` / `hotp` / `verifyTotp` | TOTP/HOTP (2FA) codes. |
 | `nanoid` / `customAlphabet` / `ulid` | Compact / custom-alphabet / sortable IDs. |
 | `signJwt` / `verifyJwt` / `decodeJwt` / `JwtError` | JSON Web Tokens (HS256/384/512). |
+
+## Binary
+
+Import from `craft-kit` or `craft-kit/binary`.
+
+| Export | Description |
+| --- | --- |
+| `ByteBuffer` | Growable binary buffer with read/write cursor and configurable endianness: `writeUint8`…`writeBigInt64`, `writeBytes`, `writeString`, matching `read*`, `position`, `length`, `toUint8Array`. |
+| `bytes` | Byte-array helpers: `fromHex`/`toHex`, `fromBase64`/`toBase64`, `fromUtf8`/`toUtf8`, `concat`, `equals`, `compare`, `xor`. |
+| `BitSet` | Compact growable bit set: `set`, `clear`, `toggle`, `get`/`test`, `count`, `and`/`or`/`xor`, `toArray`. |
+| `bits` | 32-bit bitwise helpers: `popcount`, `leadingZeros`, `trailingZeros`, `setBit`/`clearBit`/`toggleBit`/`testBit`, `rotateLeft`/`rotateRight`, `toBinaryString`/`parseBinary`, `isPowerOfTwo`, `nextPowerOfTwo`. |
+
+## Streams
+
+Web Streams helpers (`ReadableStream`/`TransformStream`; Node 18+ or browser). Import from `craft-kit` or `craft-kit/streams`.
+
+`streams` methods: `fromIterable`, `toArray`, `toAsyncIterable`, `map`, `filter`, `take`, `forEach`, `reduce`, `text`, `fromString`, `mapTransform`.
 
 ## Common
 

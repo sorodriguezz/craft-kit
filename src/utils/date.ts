@@ -5,33 +5,116 @@
  */
 export const dates = {
   /**
-   * Format a date using a token pattern. Supported tokens: `YYYY` (4-digit
-   * year), `MM` (month), `DD` (day), `HH` (24-hour), `mm` (minutes), `ss`
-   * (seconds). All numeric tokens are zero-padded. Values are read from the
-   * local time zone.
-   *
-   * @param date - The date to format (not mutated).
-   * @param pattern - The token pattern.
-   * @returns The formatted string.
+   * Format a date using a token pattern (inverse of {@link parse}). Tokens:
+   * `YYYY`/`YY` year, `MMMM`/`MMM`/`MM`/`M` month (names use `locale`),
+   * `DD`/`D` day, `dddd`/`ddd` weekday, `HH`/`H` 24h, `hh`/`h` 12h, `mm`/`m`
+   * minutes, `ss`/`s` seconds, `SSS` millis, `A`/`a` AM/PM. Local time zone.
    *
    * @example
-   * dates.format(new Date(2024, 0, 5, 9, 7, 3), "YYYY-MM-DD HH:mm:ss");
-   * // "2024-01-05 09:07:03"
+   * dates.format(new Date(2024, 0, 5, 9, 7, 3), "YYYY-MM-DD HH:mm:ss"); // "2024-01-05 09:07:03"
+   * dates.format(new Date(2024, 0, 5), "DD MMM YYYY", "es");            // "05 ene 2024"
    */
-  format(date: Date, pattern: string): string {
-    const pad = (value: number): string => String(value).padStart(2, "0");
-    const replacements: Record<string, string> = {
-      YYYY: String(date.getFullYear()).padStart(4, "0"),
+  format(date: Date, pattern: string, locale = "en"): string {
+    const pad = (value: number, length = 2): string => String(value).padStart(length, "0");
+    const hour12 = date.getHours() % 12 || 12;
+    const name = (options: Intl.DateTimeFormatOptions): string =>
+      new Intl.DateTimeFormat(locale, options).format(date);
+    const map: Record<string, string> = {
+      YYYY: pad(date.getFullYear(), 4),
+      YY: pad(date.getFullYear() % 100),
+      MMMM: name({ month: "long" }),
+      MMM: name({ month: "short" }),
       MM: pad(date.getMonth() + 1),
+      M: String(date.getMonth() + 1),
       DD: pad(date.getDate()),
+      D: String(date.getDate()),
+      dddd: name({ weekday: "long" }),
+      ddd: name({ weekday: "short" }),
       HH: pad(date.getHours()),
+      H: String(date.getHours()),
+      hh: pad(hour12),
+      h: String(hour12),
       mm: pad(date.getMinutes()),
+      m: String(date.getMinutes()),
       ss: pad(date.getSeconds()),
+      s: String(date.getSeconds()),
+      SSS: pad(date.getMilliseconds(), 3),
+      A: date.getHours() < 12 ? "AM" : "PM",
+      a: date.getHours() < 12 ? "am" : "pm",
     };
     return pattern.replace(
-      /YYYY|MM|DD|HH|mm|ss/g,
-      (token) => replacements[token] ?? token,
+      /YYYY|MMMM|dddd|SSS|MMM|ddd|YY|MM|DD|HH|hh|mm|ss|M|D|H|h|m|s|A|a/g,
+      (token) => (token in map ? map[token] : token),
     );
+  },
+
+  /**
+   * Parse a string into a `Date` using a token pattern (inverse of
+   * {@link format}). Numeric tokens: `YYYY`, `YY`, `MM`, `M`, `DD`, `D`,
+   * `HH`, `H`, `mm`, `m`, `ss`, `s`, `SSS`. Returns `null` if the input does
+   * not match. Interpreted in the local time zone.
+   *
+   * @example
+   * dates.parse("05/01/2024 09:07", "DD/MM/YYYY HH:mm"); // 2024-01-05 09:07
+   */
+  parse(input: string, pattern: string): Date | null {
+    const tokens = ["YYYY", "SSS", "YY", "MM", "DD", "HH", "mm", "ss", "M", "D", "H", "m", "s"];
+    const groups: Record<string, string> = {
+      YYYY: "(\\d{4})", YY: "(\\d{2})", SSS: "(\\d{3})",
+      MM: "(\\d{2})", M: "(\\d{1,2})", DD: "(\\d{2})", D: "(\\d{1,2})",
+      HH: "(\\d{2})", H: "(\\d{1,2})", mm: "(\\d{2})", m: "(\\d{1,2})",
+      ss: "(\\d{2})", s: "(\\d{1,2})",
+    };
+    const fields: string[] = [];
+    let regex = "";
+    let i = 0;
+    while (i < pattern.length) {
+      const token = tokens.find((t) => pattern.startsWith(t, i));
+      if (token) {
+        regex += groups[token];
+        fields.push(token);
+        i += token.length;
+      } else {
+        regex += pattern[i].replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        i++;
+      }
+    }
+    const match = new RegExp("^" + regex + "$").exec(input);
+    if (!match) return null;
+    const parts = { year: 1970, month: 0, day: 1, hour: 0, minute: 0, second: 0, ms: 0 };
+    fields.forEach((token, index) => {
+      const value = parseInt(match[index + 1], 10);
+      if (token === "YYYY") parts.year = value;
+      else if (token === "YY") parts.year = value < 70 ? 2000 + value : 1900 + value;
+      else if (token === "MM" || token === "M") parts.month = value - 1;
+      else if (token === "DD" || token === "D") parts.day = value;
+      else if (token === "HH" || token === "H") parts.hour = value;
+      else if (token === "mm" || token === "m") parts.minute = value;
+      else if (token === "ss" || token === "s") parts.second = value;
+      else if (token === "SSS") parts.ms = value;
+    });
+    const result = new Date(parts.year, parts.month, parts.day, parts.hour, parts.minute, parts.second, parts.ms);
+    return Number.isNaN(result.getTime()) ? null : result;
+  },
+
+  /** Convert Unix epoch seconds to a `Date`. */
+  fromUnix(seconds: number): Date {
+    return new Date(seconds * 1000);
+  },
+
+  /** Convert a `Date` to Unix epoch seconds. */
+  toUnix(date: Date): number {
+    return Math.floor(date.getTime() / 1000);
+  },
+
+  /** Convert epoch milliseconds to a `Date`. */
+  fromTimestamp(milliseconds: number): Date {
+    return new Date(milliseconds);
+  },
+
+  /** Convert a `Date` to epoch milliseconds. */
+  toTimestamp(date: Date): number {
+    return date.getTime();
   },
 
   /**

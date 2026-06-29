@@ -1,6 +1,6 @@
 {
   "name": "craft-kit",
-  "version": "2.2.2",
+  "version": "2.3.0",
   "description": "All-in-one zero-dependency toolkit for JavaScript and TypeScript: data structures, algorithms, design patterns, an adapter-based HTTP client, Java-style utilities, functional helpers, async utilities, array/object/string/date helpers, validation (incl. Chilean RUT) and security. Framework-agnostic, dual ESM + CommonJS.",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -127,13 +127,34 @@
         "default": "./dist/security.cjs"
       }
     },
+    "./binary": {
+      "import": {
+        "types": "./dist/binary.d.ts",
+        "default": "./dist/binary.js"
+      },
+      "require": {
+        "types": "./dist/binary.d.cts",
+        "default": "./dist/binary.cjs"
+      }
+    },
+    "./streams": {
+      "import": {
+        "types": "./dist/streams.d.ts",
+        "default": "./dist/streams.js"
+      },
+      "require": {
+        "types": "./dist/streams.d.cts",
+        "default": "./dist/streams.cjs"
+      }
+    },
     "./package.json": "./package.json"
   },
   "sideEffects": false,
   "files": [
     "dist",
     "es.md",
-    "FEATURES.md"
+    "FEATURES.md",
+    "FEATURES.es.md"
   ],
   "engines": {
     "node": ">=16"

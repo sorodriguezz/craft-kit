@@ -195,7 +195,9 @@ await breaker.execute(() => callFlakyService());
 
 ## 🛠️ Utilities
 
-Grouped into *namespaces*: `arrays`, `numbers`, `booleans`, `strings`, `dates`, `objects`, `query`, `is`.
+Grouped into *namespaces*: `arrays`, `numbers`, `booleans`, `strings`, `dates`, `objects`, `query`, `is`, `colors`, `units`, `csv`, `duration`.
+
+Binary: `ByteBuffer`, `bytes`, `BitSet`, `bits` (`craft-kit/binary`). Web Streams helpers: `streams` (`craft-kit/streams`).
 
 ```ts
 import { arrays, strings, objects, is } from "craft-kit";
@@ -218,7 +220,7 @@ objects.flatten({ a: { b: 1 } });         // { "a.b": 1 }
 is.number(5);  is.array(x);  is.plainObject(x);  is.nullish(x);  is.empty(x);
 ```
 
-`numbers` (clamp, round, formatThousands…), `dates` (format, addDays, diffInDays…), `booleans` (parse, xor…), `query` (parse/stringify query strings).
+`numbers` (clamp, round, formatThousands…), `dates` (format, parse, addDays, diffInDays, fromUnix/toUnix…), `booleans` (parse, xor…), `query` (parse/stringify query strings).
 
 ## 🛡️ Quick validation (null / empty)
 
@@ -332,7 +334,7 @@ import { Graph, dijkstra } from "craft-kit/algorithms";
 import { Stack, LRUCache } from "craft-kit/structures";
 ```
 
-Subpaths: `craft-kit/{common, structures, algorithms, java, async, fp, patterns, http, utils, validation, security}`.
+Subpaths: `craft-kit/{common, structures, algorithms, java, async, fp, patterns, http, binary, streams, utils, validation, security}`.
 
 ## ✅ Compatibility
 

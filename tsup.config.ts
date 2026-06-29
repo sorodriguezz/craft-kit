@@ -14,6 +14,8 @@ export default defineConfig({
     utils: "src/utils/index.ts",
     validation: "src/validation/index.ts",
     security: "src/security/index.ts",
+    binary: "src/binary/index.ts",
+    streams: "src/streams/index.ts",
   },
   format: ["esm", "cjs"],
   dts: true,

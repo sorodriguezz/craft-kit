@@ -175,4 +175,219 @@ export const numbers = {
       ? `${sign}${grouped}.${fractionPart}`
       : `${sign}${grouped}`;
   },
+
+  /**
+   * Convert an integer to its Roman numeral representation.
+   *
+   * @param n - An integer in the inclusive range `[1, 3999]`.
+   * @returns The Roman numeral string.
+   * @throws {RangeError} When `n` is not an integer in `[1, 3999]`.
+   *
+   * @example
+   * numbers.toRoman(1990); // "MCMXC"
+   * numbers.toRoman(4); // "IV"
+   */
+  toRoman(n: number): string {
+    if (!Number.isInteger(n) || n < 1 || n > 3999) {
+      throw new RangeError("toRoman expects an integer in [1, 3999]");
+    }
+    const table: Array<[number, string]> = [
+      [1000, "M"],
+      [900, "CM"],
+      [500, "D"],
+      [400, "CD"],
+      [100, "C"],
+      [90, "XC"],
+      [50, "L"],
+      [40, "XL"],
+      [10, "X"],
+      [9, "IX"],
+      [5, "V"],
+      [4, "IV"],
+      [1, "I"],
+    ];
+    let remaining = n;
+    let result = "";
+    for (const [value, symbol] of table) {
+      while (remaining >= value) {
+        result += symbol;
+        remaining -= value;
+      }
+    }
+    return result;
+  },
+
+  /**
+   * Parse a Roman numeral string into its integer value.
+   *
+   * Parsing is case-insensitive and tolerant of surrounding whitespace.
+   *
+   * @param roman - The Roman numeral string (e.g. `"MCMXC"`).
+   * @returns The integer value.
+   * @throws {Error} When the string contains characters that are not Roman
+   * numeral symbols.
+   *
+   * @example
+   * numbers.fromRoman("MCMXC"); // 1990
+   * numbers.fromRoman("IV"); // 4
+   */
+  fromRoman(roman: string): number {
+    const values: Record<string, number> = {
+      I: 1,
+      V: 5,
+      X: 10,
+      L: 50,
+      C: 100,
+      D: 500,
+      M: 1000,
+    };
+    const normalized = roman.trim().toUpperCase();
+    let total = 0;
+    for (let i = 0; i < normalized.length; i++) {
+      const current = values[normalized[i]];
+      if (current === undefined) {
+        throw new Error(`Invalid Roman numeral: ${roman}`);
+      }
+      const next = i + 1 < normalized.length ? values[normalized[i + 1]] : undefined;
+      if (next !== undefined && current < next) {
+        total -= current;
+      } else {
+        total += current;
+      }
+    }
+    return total;
+  },
+
+  /**
+   * Format an integer as an English ordinal string.
+   *
+   * @param n - The integer to format.
+   * @returns The ordinal string (e.g. `"1st"`, `"22nd"`, `"-3rd"`).
+   *
+   * @example
+   * numbers.toOrdinal(1); // "1st"
+   * numbers.toOrdinal(21); // "21st"
+   * numbers.toOrdinal(13); // "13th"
+   */
+  toOrdinal(n: number): string {
+    const absolute = Math.abs(n);
+    const lastTwo = absolute % 100;
+    const lastOne = absolute % 10;
+    let suffix = "th";
+    if (lastTwo < 11 || lastTwo > 13) {
+      if (lastOne === 1) {
+        suffix = "st";
+      } else if (lastOne === 2) {
+        suffix = "nd";
+      } else if (lastOne === 3) {
+        suffix = "rd";
+      }
+    }
+    return `${n}${suffix}`;
+  },
+
+  /**
+   * Spell out an integer in English words.
+   *
+   * Supports negative values and magnitudes up to the short-scale billions.
+   * Any fractional part of the input is truncated toward zero.
+   *
+   * @param n - The integer to convert.
+   * @returns The English-language representation.
+   *
+   * @example
+   * numbers.toWords(0); // "zero"
+   * numbers.toWords(-42); // "negative forty-two"
+   * numbers.toWords(1234); // "one thousand two hundred thirty-four"
+   */
+  toWords(n: number): string {
+    if (!Number.isFinite(n)) {
+      return String(n);
+    }
+    const value = Math.trunc(n);
+    if (value === 0) {
+      return "zero";
+    }
+
+    const ones = [
+      "zero",
+      "one",
+      "two",
+      "three",
+      "four",
+      "five",
+      "six",
+      "seven",
+      "eight",
+      "nine",
+      "ten",
+      "eleven",
+      "twelve",
+      "thirteen",
+      "fourteen",
+      "fifteen",
+      "sixteen",
+      "seventeen",
+      "eighteen",
+      "nineteen",
+    ];
+    const tens = [
+      "",
+      "",
+      "twenty",
+      "thirty",
+      "forty",
+      "fifty",
+      "sixty",
+      "seventy",
+      "eighty",
+      "ninety",
+    ];
+    const scales = ["", "thousand", "million", "billion", "trillion"];
+
+    const threeDigits = (group: number): string => {
+      const parts: string[] = [];
+      const hundreds = Math.floor(group / 100);
+      const rest = group % 100;
+      if (hundreds > 0) {
+        parts.push(`${ones[hundreds]} hundred`);
+      }
+      if (rest > 0) {
+        if (rest < 20) {
+          parts.push(ones[rest]);
+        } else {
+          const tensDigit = Math.floor(rest / 10);
+          const onesDigit = rest % 10;
+          parts.push(
+            onesDigit > 0
+              ? `${tens[tensDigit]}-${ones[onesDigit]}`
+              : tens[tensDigit],
+          );
+        }
+      }
+      return parts.join(" ");
+    };
+
+    const negative = value < 0;
+    let remaining = Math.abs(value);
+    const groups: number[] = [];
+    while (remaining > 0) {
+      groups.push(remaining % 1000);
+      remaining = Math.floor(remaining / 1000);
+    }
+
+    const words: string[] = [];
+    for (let i = groups.length - 1; i >= 0; i--) {
+      const group = groups[i];
+      if (group === 0) {
+        continue;
+      }
+      const chunk = threeDigits(group);
+      const scale = scales[i];
+      words.push(scale.length > 0 ? `${chunk} ${scale}` : chunk);
+    }
+
+    const result = words.join(" ");
+    return negative ? `negative ${result}` : result;
+  },
 };

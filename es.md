@@ -4,7 +4,7 @@
 [![license](https://img.shields.io/npm/l/craft-kit.svg)](https://github.com/sorodriguezz/craft-kit/blob/main/LICENSE)
 [![types](https://img.shields.io/npm/types/craft-kit.svg)](https://www.npmjs.com/package/craft-kit)
 
-[English](https://github.com/sorodriguezz/craft-kit/blob/main/README.md) · **Español** · 📚 [Referencia completa de funcionalidades (tablas)](https://github.com/sorodriguezz/craft-kit/blob/main/FEATURES.md)
+[English](https://github.com/sorodriguezz/craft-kit/blob/main/README.md) · **Español** · 📚 [Referencia completa de funcionalidades (tablas)](https://github.com/sorodriguezz/craft-kit/blob/main/FEATURES.es.md)
 
 Kit de utilidades todo-en-uno para **JavaScript y TypeScript**: estructuras de datos, algoritmos, patrones de diseño, cliente HTTP, utilidades de estilo Java, programación funcional, helpers async, utilidades de arreglos/objetos/strings/fechas, validaciones (incluido **RUT chileno**) y seguridad.
 
@@ -185,7 +185,9 @@ También: `pAll`, `pSettle`, `Mutex`, `Deferred`, `AsyncQueue`, e `iter` (genera
 
 ## 🛠️ Utilidades
 
-Agrupadas en *namespaces*: `arrays`, `numbers`, `booleans`, `strings`, `dates`, `objects`, `query`, `is`.
+Agrupadas en *namespaces*: `arrays`, `numbers`, `booleans`, `strings`, `dates`, `objects`, `query`, `is`, `colors`, `units`, `csv`, `duration`.
+
+Binarios: `ByteBuffer`, `bytes`, `BitSet`, `bits` (`craft-kit/binary`). Helpers de Web Streams: `streams` (`craft-kit/streams`).
 
 ```ts
 import { arrays, strings, objects, is } from "craft-kit";
@@ -208,7 +210,7 @@ objects.pick(obj, ["a", "b"]);
 is.number(5);  is.array(x);  is.plainObject(x);  is.nullish(x);  is.empty(x);
 ```
 
-`numbers` (clamp, round, formatThousands…), `dates` (format, addDays, diffInDays…), `booleans` (parse, xor…), `query` (parse/stringify de query strings).
+`numbers` (clamp, round, formatThousands…), `dates` (format, parse, addDays, diffInDays, fromUnix/toUnix…), `booleans` (parse, xor…), `query` (parse/stringify de query strings).
 
 ## 🛡️ Validación rápida (null / vacío)
 
@@ -313,7 +315,7 @@ import { Graph, dijkstra } from "craft-kit/algorithms";
 import { Stack, LRUCache } from "craft-kit/structures";
 ```
 
-Subrutas: `craft-kit/{common, structures, algorithms, java, async, fp, patterns, http, utils, validation, security}`.
+Subrutas: `craft-kit/{common, structures, algorithms, java, async, fp, patterns, http, binary, streams, utils, validation, security}`.
 
 ## ✅ Compatibilidad
 

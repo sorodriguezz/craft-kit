@@ -11,8 +11,10 @@ export * from "./async";
 export * from "./fp";
 export * from "./patterns";
 export * from "./http";
+export * from "./binary";
+export * from "./streams";
 export * from "./utils";
 export * from "./validation";
 
 /** Current library version. */
-export const VERSION = "2.2.2";
+export const VERSION = "2.3.0";
