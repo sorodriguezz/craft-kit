@@ -4,3 +4,4 @@ export * from "./encoding";
 export * from "./aes";
 export * from "./totp";
 export * from "./id";
+export * from "./jwt";

@@ -7,3 +7,7 @@ export * from "./mst";
 export * from "./a-star";
 export * from "./bellman-ford";
 export * from "./floyd-warshall";
+export * from "./strongly-connected-components";
+export * from "./bridges";
+export * from "./bipartite";
+export * from "./max-flow";

@@ -1,6 +1,6 @@
 {
   "name": "craft-kit",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "All-in-one zero-dependency toolkit for JavaScript and TypeScript: data structures, algorithms, design patterns, an adapter-based HTTP client, Java-style utilities, functional helpers, async utilities, array/object/string/date helpers, validation (incl. Chilean RUT) and security. Framework-agnostic, dual ESM + CommonJS.",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -140,7 +140,11 @@
     "build": "tsup",
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "npm run build",
-    "docs": "typedoc"
+    "docs": "typedoc",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "coverage": "vitest run --coverage",
+    "bench": "npm run build && node bench/index.mjs"
   },
   "keywords": [
     "typescript",
@@ -184,6 +188,9 @@
     "@types/node": "^20.19.43",
     "tsup": "^8.0.0",
     "typescript": "^5.7.3",
-    "typedoc": "^0.27.0"
+    "typedoc": "^0.27.0",
+    "vitest": "^2.1.0",
+    "@vitest/coverage-v8": "^2.1.0",
+    "tinybench": "^2.9.0"
   }
 }

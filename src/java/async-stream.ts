@@ -1,6 +1,7 @@
 import { type Comparator, naturalOrder } from "../common/comparator";
 import type { MaybePromise } from "../common/types";
 import { Optional } from "./optional";
+import type { Gatherer } from "./gatherers";
 
 /**
  * Lazy, chainable pipeline over async (or sync) data, built on async
@@ -241,5 +242,53 @@ export class AsyncStream<T> implements AsyncIterable<T> {
       }
     }
     return has ? Optional.ofNullable(best) : Optional.empty<T>();
+  }
+
+  /** One-to-many transform via an explicit push consumer; the mapper may be async. */
+  mapMulti<U>(
+    mapper: (element: T, push: (value: U) => void) => MaybePromise<void>,
+  ): AsyncStream<U> {
+    const src = this.source;
+    async function* gen(): AsyncGenerator<U> {
+      for await (const element of src) {
+        const buffer: U[] = [];
+        await mapper(element, (value) => buffer.push(value));
+        yield* buffer;
+      }
+    }
+    return new AsyncStream<U>(gen());
+  }
+
+  /**
+   * Applies a custom intermediate operation. Reuses the same {@link Gatherer}
+   * abstraction as the synchronous Stream, so the built-in `Gatherers`
+   * (windowFixed, scan, fold, distinctBy, limit, ...) work here too.
+   */
+  gather<S, R>(gatherer: Gatherer<T, S, R>): AsyncStream<R> {
+    const src = this.source;
+    async function* gen(): AsyncGenerator<R> {
+      const state = (gatherer.initializer ? gatherer.initializer() : undefined) as S;
+      const buffer: R[] = [];
+      const push = (value: R): void => {
+        buffer.push(value);
+      };
+      let stopped = false;
+      for await (const element of src) {
+        const result = gatherer.integrator(state, element, push);
+        if (buffer.length > 0) {
+          yield* buffer;
+          buffer.length = 0;
+        }
+        if (result === false) {
+          stopped = true;
+          break;
+        }
+      }
+      if (!stopped && gatherer.finisher) {
+        gatherer.finisher(state, push);
+        if (buffer.length > 0) yield* buffer;
+      }
+    }
+    return new AsyncStream<R>(gen());
   }
 }

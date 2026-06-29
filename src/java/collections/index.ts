@@ -6,3 +6,8 @@ export * from "./tree-map";
 export * from "./hash-set";
 export * from "./linked-hash-set";
 export * from "./tree-set";
+export * from "./multi-map";
+export * from "./multi-set";
+export * from "./bi-map";
+export * from "./enum-map";
+export * from "./enum-set";

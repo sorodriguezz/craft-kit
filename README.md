@@ -152,7 +152,7 @@ const config = LazyConstant.of(() => loadConfig());
 config.get();                                       // computa una sola vez
 ```
 
-Además: `SequencedCollection` en `ArrayList`/`LinkedList` (`addFirst`/`getFirst`/`removeLast`/`reversed()`), atomics con `compareAndExchange`/`accumulateAndGet`, y `Gatherers` `windowSliding`/`fold`/`distinctBy`/`limit`. Para mapeo concurrente (estilo `Gatherers.mapConcurrent`) usa `AsyncStream.mapParallel`.
+Además: `SequencedCollection` en `ArrayList`/`LinkedList` (`addFirst`/`getFirst`/`removeLast`/`reversed()`), atomics con `compareAndExchange`/`accumulateAndGet`, y `Gatherers` `windowSliding`/`fold`/`distinctBy`/`limit`. `AsyncStream` también soporta `mapMulti` y `gather` (reusando los mismos `Gatherers`); para mapeo concurrente (estilo `Gatherers.mapConcurrent`) usa `AsyncStream.mapParallel`.
 
 ## 🔁 Programación funcional
 
@@ -316,6 +316,10 @@ Subrutas: `craft-kit/{common, structures, algorithms, java, async, fp, patterns,
 ## ✅ Compatibilidad
 
 Node.js 16+ (el cliente HTTP por defecto requiere `fetch`: Node 18+ o un adapter). ESM y CommonJS. Navegador con cualquier bundler. Tipos incluidos.
+
+## 🧪 Calidad
+
+Suite de tests con **Vitest** (`npm test`, `npm run coverage`) y benchmarks con **tinybench** (`npm run bench`). Build dual ESM + CommonJS con tsup y typecheck estricto (`npm run typecheck`).
 
 ## 📜 Licencia
 

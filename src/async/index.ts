@@ -8,3 +8,8 @@ export * from "./p-map";
 export * from "./async-queue";
 export * from "./rate-limiter";
 export * from "./worker-pool";
+export * from "./circuit-breaker";
+export * from "./bulkhead";
+export * from "./count-down-latch";
+export * from "./channel";
+export * from "./debounce-async";
