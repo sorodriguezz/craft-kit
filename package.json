@@ -63,6 +63,7 @@
   "author": "sorodriguezz",
   "license": "MIT",
   "devDependencies": {
+    "@types/node": "^20.19.43",
     "tsup": "^8.0.0",
     "typescript": "^5.7.3"
   }
