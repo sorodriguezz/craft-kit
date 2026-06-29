@@ -185,9 +185,11 @@ También: `pAll`, `pSettle`, `Mutex`, `Deferred`, `AsyncQueue`, e `iter` (genera
 
 ## 🛠️ Utilidades
 
-Agrupadas en *namespaces*: `arrays`, `numbers`, `booleans`, `strings`, `dates`, `objects`, `query`, `is`, `colors`, `units`, `csv`, `duration`.
+Agrupadas en *namespaces*: `arrays`, `numbers`, `booleans`, `strings`, `dates`, `objects`, `query`, `is`, `colors`, `units`, `csv`, `duration`, `ansi`.
 
 Binarios: `ByteBuffer`, `bytes`, `BitSet`, `bits` (`craft-kit/binary`). Helpers de Web Streams: `streams` (`craft-kit/streams`).
+
+Además: `Money` (decimal seguro), `Random` (PRNG con semilla), `uuidv7`, `otpauthURL`, `luhn`/`creditCardBrand` + validadores de tarjeta/IBAN/teléfono, y colores de terminal `ansi`.
 
 ```ts
 import { arrays, strings, objects, is } from "craft-kit";

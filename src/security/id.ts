@@ -76,6 +76,39 @@ export function nanoid(size = 21): string {
 }
 
 /**
+ * Generates a UUID version 7 (RFC 9562): a 128-bit, time-ordered identifier
+ * built from a 48-bit Unix timestamp in milliseconds, the version and variant
+ * bits, and 74 bits of randomness. Returned in canonical
+ * `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx` form.
+ *
+ * Because the leading bits encode the creation time, generated values sort
+ * chronologically as strings.
+ *
+ * @param timestamp Unix epoch in milliseconds. Defaults to `Date.now()`.
+ * @returns a canonical UUIDv7 string
+ */
+export function uuidv7(timestamp: number = Date.now()): string {
+  const bytes = randomBytes(16);
+  const ms = Math.floor(timestamp);
+
+  // Bytes 0-5: 48-bit big-endian timestamp in milliseconds.
+  bytes[0] = Math.floor(ms / 2 ** 40) & 0xff;
+  bytes[1] = Math.floor(ms / 2 ** 32) & 0xff;
+  bytes[2] = Math.floor(ms / 2 ** 24) & 0xff;
+  bytes[3] = Math.floor(ms / 2 ** 16) & 0xff;
+  bytes[4] = Math.floor(ms / 2 ** 8) & 0xff;
+  bytes[5] = ms & 0xff;
+
+  // Byte 6: high nibble is the version (0b0111 = 7), low nibble stays random.
+  bytes[6] = (bytes[6] & 0x0f) | 0x70;
+  // Byte 8: top two bits are the variant (0b10), remaining bits stay random.
+  bytes[8] = (bytes[8] & 0x3f) | 0x80;
+
+  const hex = bytes.toString("hex");
+  return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
+}
+
+/**
  * Generates a ULID: a 26-character, lexicographically sortable, URL-safe
  * identifier (48-bit timestamp + 80 bits of randomness, Crockford base32).
  */

@@ -390,4 +390,80 @@ export const numbers = {
     const result = words.join(" ");
     return negative ? `negative ${result}` : result;
   },
+
+  /**
+   * Linearly interpolate between two values.
+   *
+   * @param a - The start value (returned when `t` is `0`).
+   * @param b - The end value (returned when `t` is `1`).
+   * @param t - The interpolation factor. Values outside `[0, 1]` extrapolate.
+   * @returns The interpolated value `a + (b - a) * t`.
+   *
+   * @example
+   * numbers.lerp(0, 10, 0.5); // 5
+   */
+  lerp(a: number, b: number, t: number): number {
+    return a + (b - a) * t;
+  },
+
+  /**
+   * Re-map a value from one numeric range to another.
+   *
+   * @param value - The value to re-map.
+   * @param inMin - Lower bound of the input range.
+   * @param inMax - Upper bound of the input range.
+   * @param outMin - Lower bound of the output range.
+   * @param outMax - Upper bound of the output range.
+   * @returns The value scaled into the output range. Returns `outMin` when the
+   * input range has zero width.
+   *
+   * @example
+   * numbers.mapRange(5, 0, 10, 0, 100); // 50
+   */
+  mapRange(
+    value: number,
+    inMin: number,
+    inMax: number,
+    outMin: number,
+    outMax: number,
+  ): number {
+    if (inMax === inMin) {
+      return outMin;
+    }
+    return outMin + ((value - inMin) * (outMax - outMin)) / (inMax - inMin);
+  },
+
+  /**
+   * Normalize a value within `[min, max]` to the unit range `[0, 1]`.
+   *
+   * @param value - The value to normalize.
+   * @param min - Lower bound of the range.
+   * @param max - Upper bound of the range.
+   * @returns The normalized value in `[0, 1]`. Returns `0` when the range has
+   * zero width.
+   *
+   * @example
+   * numbers.normalize(5, 0, 10); // 0.5
+   */
+  normalize(value: number, min: number, max: number): number {
+    if (max === min) {
+      return 0;
+    }
+    return (value - min) / (max - min);
+  },
+
+  /**
+   * Round a value to a fixed number of decimal places.
+   *
+   * @param value - The value to round.
+   * @param decimals - Number of decimal places.
+   * @returns The rounded value.
+   *
+   * @example
+   * numbers.roundTo(3.14159, 2); // 3.14
+   */
+  roundTo(value: number, decimals: number): number {
+    const factor = 10 ** decimals;
+    return Math.round(value * factor) / factor;
+  },
 };

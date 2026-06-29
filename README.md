@@ -195,9 +195,11 @@ await breaker.execute(() => callFlakyService());
 
 ## 🛠️ Utilities
 
-Grouped into *namespaces*: `arrays`, `numbers`, `booleans`, `strings`, `dates`, `objects`, `query`, `is`, `colors`, `units`, `csv`, `duration`.
+Grouped into *namespaces*: `arrays`, `numbers`, `booleans`, `strings`, `dates`, `objects`, `query`, `is`, `colors`, `units`, `csv`, `duration`, `ansi`.
 
 Binary: `ByteBuffer`, `bytes`, `BitSet`, `bits` (`craft-kit/binary`). Web Streams helpers: `streams` (`craft-kit/streams`).
+
+Also: `Money` (decimal-safe), `Random` (seeded PRNG), `uuidv7`, `otpauthURL`, `luhn`/`creditCardBrand` + `validators.isCreditCard`/`isIBAN`/`isPhone`/`isPostalCode`, and `ansi` terminal colors.
 
 ```ts
 import { arrays, strings, objects, is } from "craft-kit";

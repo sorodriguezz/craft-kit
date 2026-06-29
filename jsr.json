@@ -1,0 +1,30 @@
+{
+  "name": "@sorodriguezz/craft-kit",
+  "version": "2.4.0",
+  "exports": {
+    ".": "./src/index.ts",
+    "./common": "./src/common/index.ts",
+    "./structures": "./src/structures/index.ts",
+    "./algorithms": "./src/algorithms/index.ts",
+    "./java": "./src/java/index.ts",
+    "./async": "./src/async/index.ts",
+    "./fp": "./src/fp/index.ts",
+    "./patterns": "./src/patterns/index.ts",
+    "./http": "./src/http/index.ts",
+    "./binary": "./src/binary/index.ts",
+    "./streams": "./src/streams/index.ts",
+    "./utils": "./src/utils/index.ts",
+    "./validation": "./src/validation/index.ts",
+    "./security": "./src/security/index.ts"
+  },
+  "publish": {
+    "exclude": [
+      "test",
+      "bench",
+      "dist",
+      "node_modules",
+      "examples",
+      "*.test.ts"
+    ]
+  }
+}

@@ -295,7 +295,7 @@ All comparison sorts accept an optional `Comparator<T>` and return a **new** arr
 
 ### numbers
 
-`clamp`, `round`, `inRange`, `isEven`, `isOdd`, `isInteger`, `randomInt`, `sum`, `average`, `percentage`, `formatThousands`, `toRoman`, `fromRoman`, `toOrdinal`, `toWords`.
+`clamp`, `round`, `inRange`, `isEven`, `isOdd`, `isInteger`, `randomInt`, `sum`, `average`, `percentage`, `formatThousands`, `toRoman`, `fromRoman`, `toOrdinal`, `toWords`, `lerp`, `mapRange`, `normalize`, `roundTo`.
 
 ### booleans
 
@@ -303,7 +303,7 @@ All comparison sorts accept an optional `Comparator<T>` and return a **new** arr
 
 ### strings (utils)
 
-`capitalize`, `capitalizeWords`, `camelCase`, `snakeCase`, `kebabCase`, `pascalCase`, `slugify`, `truncate`, `reverse`, `isBlank`, `stripAccents`, `words`, `count`, `countChar`, `charFrequency`, `occurrences`, `truncateMiddle`, `pluralize`, `singularize`, `mask`, `escapeHtml`, `unescapeHtml`.
+`capitalize`, `capitalizeWords`, `camelCase`, `snakeCase`, `kebabCase`, `pascalCase`, `slugify`, `truncate`, `reverse`, `isBlank`, `stripAccents`, `words`, `count`, `countChar`, `charFrequency`, `occurrences`, `truncateMiddle`, `pluralize`, `singularize`, `mask`, `escapeHtml`, `unescapeHtml`, `template`, `dedent`, `indent`, `wordWrap`, `truncateWords`.
 
 ### dates
 
@@ -345,6 +345,14 @@ Temperature / length / mass / angle: `celsiusToFahrenheit`, `fahrenheitToCelsius
 
 `parse("1h30m")` → ms, `format(ms)`, `toObject(ms)`, `fromObject({ days, hours, minutes, seconds, milliseconds })`.
 
+### ansi
+
+Terminal colors/styles (chalk-style): `black`, `red`, `green`, `yellow`, `blue`, `magenta`, `cyan`, `white`, `gray`, backgrounds (`bgRed`…), styles (`bold`, `dim`, `italic`, `underline`, `inverse`, `strikethrough`), and `strip`.
+
+### Money & Random (classes)
+
+`Money` — decimal-safe money: `of`, `fromMinor`, `add`/`subtract`/`multiply`/`divide`, `allocate`, `compare`, `format`. `Random` — seeded, deterministic PRNG: `next`, `int`, `float`, `bool`, `pick`, `sample`, `shuffle`, `string`.
+
 ## Validation
 
 | Export | Description |
@@ -352,7 +360,8 @@ Temperature / length / mass / angle: `celsiusToFahrenheit`, `fahrenheitToCelsius
 | `isEmail` | Email format check. |
 | `rut` | Chilean RUT: `clean`, `computeDv`, `validate`, `format`, `random`. |
 | `isValidRut` | Convenience RUT validator. |
-| `validators` | `isEmail`, `isUrl`, `isUuid`, `isNumeric`, `isAlpha`, `isAlphanumeric`, `isInteger`, `isHexColor`, `isIpv4`, `isJson`, `isEmpty`. |
+| `validators` | `isEmail`, `isUrl`, `isUuid`, `isNumeric`, `isAlpha`, `isAlphanumeric`, `isInteger`, `isHexColor`, `isIpv4`, `isJson`, `isEmpty`, `isCreditCard`, `isIBAN`, `isPhone`, `isPostalCode`. |
+| `luhn` / `creditCardBrand` | Luhn checksum / credit-card brand detection. |
 | `schema` | Zod-style builder: `string`, `number`, `boolean`, `array`, `object`, `literal`. |
 | `Schema` / `StringSchema` / `NumberSchema` / `BooleanSchema` / `ArraySchema` / `ObjectSchema` | Schema classes (`parse`, `safeParse` → `Result`, `optional`, `nullable`, `default`). |
 | `SchemaError` / `Infer<S>` | Validation error / inferred type helper. |
@@ -370,8 +379,8 @@ Temperature / length / mass / angle: `celsiusToFahrenheit`, `fahrenheitToCelsius
 | `aesEncrypt` / `aesDecrypt` | AES-256-GCM with scrypt key derivation. |
 | `base64Encode/Decode` / `base64UrlEncode/Decode` / `base32Encode/Decode` / `hexEncode/Decode` / `base58Encode/Decode` | Encodings. |
 | `constantTimeEqual` | Timing-safe comparison. |
-| `totp` / `hotp` / `verifyTotp` | TOTP/HOTP (2FA) codes. |
-| `nanoid` / `customAlphabet` / `ulid` | Compact / custom-alphabet / sortable IDs. |
+| `totp` / `hotp` / `verifyTotp` / `otpauthURL` | TOTP/HOTP (2FA) codes. |
+| `nanoid` / `customAlphabet` / `ulid` / `uuidv7` | Compact / custom-alphabet / sortable IDs. |
 | `signJwt` / `verifyJwt` / `decodeJwt` / `JwtError` | JSON Web Tokens (HS256/384/512). |
 
 ## Binary

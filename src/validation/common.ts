@@ -1,4 +1,5 @@
 import { isEmail } from "./email";
+import { luhn } from "./luhn";
 
 const URL_PATTERN = /^https?:\/\/[^\s/$.?#].[^\s]*$/i;
 const UUID_V4_PATTERN =
@@ -10,6 +11,9 @@ const INTEGER_PATTERN = /^[+-]?\d+$/;
 const HEX_COLOR_PATTERN = /^#(?:[0-9a-f]{3}|[0-9a-f]{4}|[0-9a-f]{6}|[0-9a-f]{8})$/i;
 const IPV4_OCTET = "(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)";
 const IPV4_PATTERN = new RegExp(`^(?:${IPV4_OCTET}\\.){3}${IPV4_OCTET}$`);
+const IBAN_PATTERN = /^[A-Z]{2}\d{2}[A-Z0-9]{10,30}$/;
+const PHONE_PATTERN = /^\+?[1-9]\d{1,14}$/;
+const POSTAL_CODE_PATTERN = /^[A-Za-z0-9][A-Za-z0-9\s-]{1,8}[A-Za-z0-9]$/;
 
 /**
  * General-purpose string validators. None of these mutate their inputs.
@@ -164,5 +168,80 @@ export const validators = {
    */
   isEmpty(value: string | null | undefined): boolean {
     return value === null || value === undefined || value.trim().length === 0;
+  },
+
+  /**
+   * Validate a credit-card number: 13 to 19 digits passing the Luhn checksum.
+   * Spaces and hyphens are ignored.
+   *
+   * @param value - The candidate card number.
+   * @returns `true` when the value is a Luhn-valid card number of valid length.
+   *
+   * @example
+   * validators.isCreditCard("4242 4242 4242 4242"); // true
+   */
+  isCreditCard(value: string): boolean {
+    const digits = value.replace(/[\s-]/g, "");
+    if (digits.length < 13 || digits.length > 19 || !/^\d+$/.test(digits)) {
+      return false;
+    }
+    return luhn(digits);
+  },
+
+  /**
+   * Validate an IBAN (International Bank Account Number) using its structure and
+   * the ISO 7064 mod-97 checksum. Spaces are ignored and letters are matched
+   * case-insensitively.
+   *
+   * @param value - The candidate IBAN.
+   * @returns `true` when the value is a structurally valid, mod-97 IBAN.
+   *
+   * @example
+   * validators.isIBAN("GB82 WEST 1234 5698 7654 32"); // true
+   */
+  isIBAN(value: string): boolean {
+    const compact = value.replace(/\s/g, "").toUpperCase();
+    if (!IBAN_PATTERN.test(compact)) {
+      return false;
+    }
+    const rearranged = compact.slice(4) + compact.slice(0, 4);
+    let remainder = 0;
+    for (const char of rearranged) {
+      const code = char.charCodeAt(0);
+      const chunk = code >= 65 && code <= 90 ? String(code - 55) : char;
+      for (const digit of chunk) {
+        remainder = (remainder * 10 + (digit.charCodeAt(0) - 48)) % 97;
+      }
+    }
+    return remainder === 1;
+  },
+
+  /**
+   * Validate a phone number in E.164 format (an optional leading `+` followed by
+   * up to 15 digits, the first of which is non-zero). Spaces are ignored.
+   *
+   * @param value - The candidate phone number.
+   * @returns `true` when the value is a valid E.164 phone number.
+   *
+   * @example
+   * validators.isPhone("+1 415 555 2671"); // true
+   */
+  isPhone(value: string): boolean {
+    return PHONE_PATTERN.test(value.replace(/\s/g, ""));
+  },
+
+  /**
+   * Validate a generic postal code: 3 to 10 alphanumeric characters that may
+   * contain interior spaces or hyphens, with alphanumeric first and last
+   * characters.
+   *
+   * @param value - The candidate postal code.
+   * @returns `true` when the value is a plausible postal code.
+   *
+   * @example
+   * validators.isPostalCode("SW1A 1AA"); // true
+   */
+  isPostalCode(value: string): boolean {
+    return POSTAL_CODE_PATTERN.test(value);
   },
 };

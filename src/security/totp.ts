@@ -124,3 +124,47 @@ export function verifyTotp(
   }
   return false;
 }
+
+/**
+ * Builds an `otpauth://totp/...` provisioning URI (the Key URI Format used by
+ * authenticator apps and QR codes). The label and issuer are URL-encoded, and
+ * the issuer is prefixed onto the label as `issuer:label` when supplied.
+ *
+ * @param options provisioning parameters
+ * @param options.secret shared secret encoded in Base32
+ * @param options.label account label, typically the user's email or username
+ * @param options.issuer service or organization name
+ * @param options.algorithm HMAC algorithm. Defaults to "SHA1"
+ * @param options.digits number of digits in the generated code. Defaults to 6
+ * @param options.period time step in seconds. Defaults to 30
+ * @returns the otpauth provisioning URI
+ */
+export function otpauthURL(options: {
+  secret: string;
+  label: string;
+  issuer?: string;
+  algorithm?: "SHA1" | "SHA256" | "SHA512";
+  digits?: number;
+  period?: number;
+}): string {
+  const { secret, label, issuer } = options;
+  const algorithm = options.algorithm ?? "SHA1";
+  const digits = options.digits ?? 6;
+  const period = options.period ?? 30;
+
+  const accountLabel =
+    issuer !== undefined && issuer.length > 0
+      ? `${encodeURIComponent(issuer)}:${encodeURIComponent(label)}`
+      : encodeURIComponent(label);
+
+  const params = new URLSearchParams();
+  params.set("secret", secret);
+  if (issuer !== undefined && issuer.length > 0) {
+    params.set("issuer", issuer);
+  }
+  params.set("algorithm", algorithm);
+  params.set("digits", String(digits));
+  params.set("period", String(period));
+
+  return `otpauth://totp/${accountLabel}?${params.toString()}`;
+}

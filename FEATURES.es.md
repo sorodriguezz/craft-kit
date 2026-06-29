@@ -295,7 +295,7 @@ Métodos de `iter`: `range`, `map`, `filter`, `take`, `drop`, `takeWhile`, `drop
 
 ### numbers
 
-`clamp`, `round`, `inRange`, `isEven`, `isOdd`, `isInteger`, `randomInt`, `sum`, `average`, `percentage`, `formatThousands`, `toRoman`, `fromRoman`, `toOrdinal`, `toWords`.
+`clamp`, `round`, `inRange`, `isEven`, `isOdd`, `isInteger`, `randomInt`, `sum`, `average`, `percentage`, `formatThousands`, `toRoman`, `fromRoman`, `toOrdinal`, `toWords`, `lerp`, `mapRange`, `normalize`, `roundTo`.
 
 ### booleans
 
@@ -303,7 +303,7 @@ Métodos de `iter`: `range`, `map`, `filter`, `take`, `drop`, `takeWhile`, `drop
 
 ### strings (utils)
 
-`capitalize`, `capitalizeWords`, `camelCase`, `snakeCase`, `kebabCase`, `pascalCase`, `slugify`, `truncate`, `reverse`, `isBlank`, `stripAccents`, `words`, `count`, `countChar`, `charFrequency`, `occurrences`, `truncateMiddle`, `pluralize`, `singularize`, `mask`, `escapeHtml`, `unescapeHtml`.
+`capitalize`, `capitalizeWords`, `camelCase`, `snakeCase`, `kebabCase`, `pascalCase`, `slugify`, `truncate`, `reverse`, `isBlank`, `stripAccents`, `words`, `count`, `countChar`, `charFrequency`, `occurrences`, `truncateMiddle`, `pluralize`, `singularize`, `mask`, `escapeHtml`, `unescapeHtml`, `template`, `dedent`, `indent`, `wordWrap`, `truncateWords`.
 
 ### dates
 
@@ -345,6 +345,14 @@ Temperatura / longitud / masa / ángulo: `celsiusToFahrenheit`, `fahrenheitToCel
 
 `parse("1h30m")` → ms, `format(ms)`, `toObject(ms)`, `fromObject({ days, hours, minutes, seconds, milliseconds })`.
 
+### ansi
+
+Colores/estilos de terminal (estilo chalk): `black`, `red`, `green`, `yellow`, `blue`, `magenta`, `cyan`, `white`, `gray`, fondos (`bgRed`…), estilos (`bold`, `dim`, `italic`, `underline`, `inverse`, `strikethrough`) y `strip`.
+
+### Money y Random (clases)
+
+`Money` — dinero con decimales exactos: `of`, `fromMinor`, `add`/`subtract`/`multiply`/`divide`, `allocate`, `compare`, `format`. `Random` — PRNG determinista con semilla: `next`, `int`, `float`, `bool`, `pick`, `sample`, `shuffle`, `string`.
+
 ## Validación
 
 | Export | Descripción |
@@ -352,7 +360,8 @@ Temperatura / longitud / masa / ángulo: `celsiusToFahrenheit`, `fahrenheitToCel
 | `isEmail` | Validación de formato de email. |
 | `rut` | RUT chileno: `clean`, `computeDv`, `validate`, `format`, `random`. |
 | `isValidRut` | Validador de RUT de conveniencia. |
-| `validators` | `isEmail`, `isUrl`, `isUuid`, `isNumeric`, `isAlpha`, `isAlphanumeric`, `isInteger`, `isHexColor`, `isIpv4`, `isJson`, `isEmpty`. |
+| `validators` | `isEmail`, `isUrl`, `isUuid`, `isNumeric`, `isAlpha`, `isAlphanumeric`, `isInteger`, `isHexColor`, `isIpv4`, `isJson`, `isEmpty`, `isCreditCard`, `isIBAN`, `isPhone`, `isPostalCode`. |
+| `luhn` / `creditCardBrand` | Checksum de Luhn / detección de marca de tarjeta. |
 | `schema` | Builder estilo zod: `string`, `number`, `boolean`, `array`, `object`, `literal`. |
 | `Schema` / `StringSchema` / `NumberSchema` / `BooleanSchema` / `ArraySchema` / `ObjectSchema` | Clases de schema (`parse`, `safeParse` → `Result`, `optional`, `nullable`, `default`). |
 | `SchemaError` / `Infer<S>` | Error de validación / helper de tipo inferido. |
@@ -370,8 +379,8 @@ Temperatura / longitud / masa / ángulo: `celsiusToFahrenheit`, `fahrenheitToCel
 | `aesEncrypt` / `aesDecrypt` | AES-256-GCM con derivación de clave por scrypt. |
 | `base64Encode/Decode` / `base64UrlEncode/Decode` / `base32Encode/Decode` / `hexEncode/Decode` / `base58Encode/Decode` | Codificaciones. |
 | `constantTimeEqual` | Comparación en tiempo constante. |
-| `totp` / `hotp` / `verifyTotp` | Códigos TOTP/HOTP (2FA). |
-| `nanoid` / `customAlphabet` / `ulid` | IDs compactos / de alfabeto custom / ordenables. |
+| `totp` / `hotp` / `verifyTotp` / `otpauthURL` | Códigos TOTP/HOTP (2FA). |
+| `nanoid` / `customAlphabet` / `ulid` / `uuidv7` | IDs compactos / de alfabeto custom / ordenables. |
 | `signJwt` / `verifyJwt` / `decodeJwt` / `JwtError` | JSON Web Tokens (HS256/384/512). |
 
 ## Binario
