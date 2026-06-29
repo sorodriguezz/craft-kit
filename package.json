@@ -1,6 +1,6 @@
 {
   "name": "craft-kit",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "description": "All-in-one zero-dependency toolkit for JavaScript and TypeScript: data structures, algorithms, design patterns, an adapter-based HTTP client, Java-style utilities, functional helpers, async utilities, array/object/string/date helpers, validation (incl. Chilean RUT) and security. Framework-agnostic, dual ESM + CommonJS.",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -202,5 +202,13 @@
     "overrides": {
       "glob": "^11.0.0"
     }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sorodriguezz/craft-kit.git"
+  },
+  "homepage": "https://github.com/sorodriguezz/craft-kit#readme",
+  "bugs": {
+    "url": "https://github.com/sorodriguezz/craft-kit/issues"
   }
 }

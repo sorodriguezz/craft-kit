@@ -1,10 +1,10 @@
 # craft-kit
 
 [![npm version](https://img.shields.io/npm/v/craft-kit.svg)](https://www.npmjs.com/package/craft-kit)
-[![license](https://img.shields.io/npm/l/craft-kit.svg)](./LICENSE)
+[![license](https://img.shields.io/npm/l/craft-kit.svg)](https://github.com/sorodriguezz/craft-kit/blob/main/LICENSE)
 [![types](https://img.shields.io/npm/types/craft-kit.svg)](https://www.npmjs.com/package/craft-kit)
 
-**English** · [Español](./es.md) · 📚 [Full feature reference (tables)](./FEATURES.md)
+**English** · [Español](https://github.com/sorodriguezz/craft-kit/blob/main/es.md) · 📚 [Full feature reference (tables)](https://github.com/sorodriguezz/craft-kit/blob/main/FEATURES.md)
 
 All-in-one utility kit for **JavaScript and TypeScript**: data structures, algorithms, design patterns, an HTTP client, Java-style utilities, functional programming, async helpers, array/object/string/date utilities, validation (including **Chilean RUT**) and security.
 
@@ -12,7 +12,7 @@ All-in-one utility kit for **JavaScript and TypeScript**: data structures, algor
 - **ESM and CommonJS**: `import` and `require` work with no configuration.
 - **Types included**, fully generic. **Zero dependencies** and *tree-shakeable*.
 
-> 📚 Looking for the full list of everything the library exposes? See the **[feature reference](./FEATURES.md)**.
+> 📚 Looking for the full list of everything the library exposes? See the **[feature reference](https://github.com/sorodriguezz/craft-kit/blob/main/FEATURES.md)**.
 
 ## 📦 Installation
 
@@ -344,7 +344,7 @@ Test suite with **Vitest** (`npm test`, `npm run coverage`) and benchmarks with 
 
 ## 📚 Full reference
 
-Every export, grouped by module, lives in **[FEATURES.md](./FEATURES.md)**.
+Every export, grouped by module, lives in **[FEATURES.md](https://github.com/sorodriguezz/craft-kit/blob/main/FEATURES.md)**.
 
 ## 📜 License
 

@@ -15,4 +15,4 @@ export * from "./utils";
 export * from "./validation";
 
 /** Current library version. */
-export const VERSION = "2.2.1";
+export const VERSION = "2.2.2";

@@ -1,10 +1,10 @@
 # craft-kit
 
 [![npm version](https://img.shields.io/npm/v/craft-kit.svg)](https://www.npmjs.com/package/craft-kit)
-[![license](https://img.shields.io/npm/l/craft-kit.svg)](./LICENSE)
+[![license](https://img.shields.io/npm/l/craft-kit.svg)](https://github.com/sorodriguezz/craft-kit/blob/main/LICENSE)
 [![types](https://img.shields.io/npm/types/craft-kit.svg)](https://www.npmjs.com/package/craft-kit)
 
-[English](./README.md) · **Español** · 📚 [Referencia completa de funcionalidades (tablas)](./FEATURES.md)
+[English](https://github.com/sorodriguezz/craft-kit/blob/main/README.md) · **Español** · 📚 [Referencia completa de funcionalidades (tablas)](https://github.com/sorodriguezz/craft-kit/blob/main/FEATURES.md)
 
 Kit de utilidades todo-en-uno para **JavaScript y TypeScript**: estructuras de datos, algoritmos, patrones de diseño, cliente HTTP, utilidades de estilo Java, programación funcional, helpers async, utilidades de arreglos/objetos/strings/fechas, validaciones (incluido **RUT chileno**) y seguridad.
 

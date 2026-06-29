@@ -1,8 +1,8 @@
 # craft-kit — Feature Reference
 
-[English README](./README.md) · [README en Español](./es.md)
+[English README](https://github.com/sorodriguezz/craft-kit/blob/main/README.md) · [README en Español](https://github.com/sorodriguezz/craft-kit/blob/main/es.md)
 
-Complete reference of everything `craft-kit` exports, grouped by module. Import any symbol from the package root (`import { X } from "craft-kit"`) or from a [subpath](./README.md#-subpath-imports) (e.g. `craft-kit/structures`).
+Complete reference of everything `craft-kit` exports, grouped by module. Import any symbol from the package root (`import { X } from "craft-kit"`) or from a [subpath](https://github.com/sorodriguezz/craft-kit/blob/main/README.md#-subpath-imports) (e.g. `craft-kit/structures`).
 
 - [Data structures](#data-structures)
 - [Algorithms](#algorithms) — [sorting](#sorting) · [searching](#searching) · [graph](#graph) · [strings](#strings) · [dynamic programming](#dynamic-programming) · [backtracking](#backtracking) · [math](#math) · [geometry](#geometry)
